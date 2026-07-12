@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>روستای چای‌باغ | طبیعت، تاریخ، فرهنگ و زندگی</title>
+    <meta name="description" content="روستای چای‌باغ - جنگل‌های هیرکانی، پل شاپور تاریخی، اقامتگاه بوم‌گردی و محصولات ارگانیک در سوادکوه شمالی مازندران.">
+    
+    <!-- فایل‌های CSS خارجی -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;400;600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- فایل CSS اختصاصی -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="page-bg"></div>
+
+    <!-- ========== HEADER ========== -->
+    <header>
+        <div class="header-inner">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>چای‌باغ</span>
+            </div>
+            <button class="menu-toggle" id="menuToggle" aria-label="منو">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#home" class="active">خانه</a></li>
+                    <li><a href="#about">درباره</a></li>
+                    <li><a href="#nature">طبیعت</a></li>
+                    <li><a href="#history">تاریخ</a></li>
+                    <li><a href="#gallery">گالری</a></li>
+                    <li><a href="#stay">اقامت</a></li>
+                    <li><a href="#contact">تماس</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ========== HOME ========== -->
+    <section id="home" class="section">
+        <div class="container">
+            <div class="card reveal" style="background: linear-gradient(145deg, var(--primary-dark), var(--primary)); color: #fff; border: none;">
+                <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <h1 style="font-size: 34px; font-weight: 900; line-height: 1.3; margin-bottom: 12px;">
+                            <i class="fas fa-tree" style="color: var(--accent);"></i>
+                            روستای چای‌باغ
+                        </h1>
+                        <p style="font-size: 15px; opacity: 0.9; margin-bottom: 18px;">
+                            در دل جنگل‌های هیرکانی، جایی که تاریخ با طبیعت پیوند خورده است.
+                        </p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                            <span style="background: rgba(255,255,255,0.12); padding: 6px 16px; border-radius: 20px; font-size: 13px; backdrop-filter: blur(4px);">
+                                <i class="fas fa-map-pin"></i> سوادکوه شمالی
+                            </span>
+                            <span style="background: rgba(255,255,255,0.12); padding: 6px 16px; border-radius: 20px; font-size: 13px; backdrop-filter: blur(4px);">
+                                <i class="fas fa-mountain"></i> جنگل‌های هیرکانی
+                            </span>
+                            <span style="background: rgba(255,255,255,0.12); padding: 6px 16px; border-radius: 20px; font-size: 13px; backdrop-filter: blur(4px);">
+                                <i class="fas fa-clock"></i> قدمت: ۲۰۰۰ سال
+                            </span>
+                        </div>
+                    </div>
+                    <div style="flex: 0 0 auto; display: flex; gap: 12px;">
+                        <a href="#stay" class="btn btn-accent"><i class="fas fa-bed"></i> رزرو اقامت</a>
+                        <a href="#gallery" class="btn btn-outline"><i class="fas fa-images"></i> گالری</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ABOUT ========== -->
+    <section id="about" class="section alt-bg">
+        <div class="container">
+            <h2 class="section-title reveal">درباره روستای چای‌باغ</h2>
+            <div class="card-grid">
+                <div class="card reveal">
+                    <h3><i class="fas fa-info-circle" style="color: var(--accent);"></i> معرفی</h3>
+                    <p>روستای چای‌باغ در بخش مرکزی سوادکوه شمالی، استان مازندران واقع شده است. این روستا با طبیعت بکر و چشمه‌سارهای فراوان، مقصدی آرام برای گردشگران و طبیعت‌دوستان محسوب می‌شود. آب و هوای خنک و پوشش گیاهی متنوع از ویژگی‌های بارز آن است.</p>
+                </div>
+                <div class="card reveal">
+                    <h3><i class="fas fa-users" style="color: var(--accent);"></i> فرهنگ و مردم</h3>
+                    <p>مردم چای‌باغ به زبان مازندرانی سخن می‌گویند و با مهمان‌نوازی شهره هستند. کشاورزی، دامداری و بوم‌گردی از مشاغل اصلی اهالی است. آیین‌های محلی و جشن‌های سنتی همچنان در این روستا پاس داشته می‌شوند.</p>
+                </div>
+                <div class="card reveal">
+                    <h3><i class="fas fa-seedling" style="color: var(--accent);"></i> محصولات ارگانیک</h3>
+                    <p>چای‌باغ به دلیل خاک حاصلخیز و آب‌وهوای مناسب، محصولات ارگانیک متنوعی از جمله گردو، سیب، گیلاس و عسل طبیعی تولید می‌کند. در فصل بهار، باغ‌های شکوفه‌زده منظره‌ای بدیع خلق می‌کنند.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== NATURE ========== -->
+    <section id="nature" class="section">
+        <div class="container">
+            <h2 class="section-title reveal">طبیعت و جاذبه‌های طبیعی</h2>
+            <div class="card-grid">
+                <div class="card reveal">
+                    <h3><i class="fas fa-tree"></i> جنگل‌های هیرکانی</h3>
+                    <p>جنگل‌های هیرکانی با قدمت بیش از ۵۰ میلیون سال، یکی از ارزشمندترین اکوسیستم‌های جهان هستند. درختان سر به فلک کشیده، سرخس‌های کهن و گونه‌های نادر گیاهی، چای‌باغ را به بهشتی برای طبیعت‌گردی تبدیل کرده است.</p>
+                </div>
+                <div class="card reveal">
+                    <h3><i class="fas fa-water"></i> چشمه‌سارها و آبشارها</h3>
+                    <p>چشمه‌های جوشان و آبشارهای فصلی در دل جنگل، طراوت خاصی به منطقه بخشیده‌اند. آبشار چای‌باغ با ارتفاع ۱۸ متر، از جمله مقاصد محبوب گردشگران است که مسیر دسترسی به آن از میان درختان و سرخس‌ها می‌گذرد.</p>
+                </div>
+                <div class="card reveal">
+                    <h3><i class="fas fa-hiking"></i> مسیرهای پیاده‌روی</h3>
+                    <p>مسیرهای کوهپیمایی متعددی در اطراف روستا وجود دارد که شما را به قله‌های دیدنی و دره‌های سرسبز می‌رساند. بهترین زمان برای پیاده‌روی، اواخر بهار و اوایل پاییز است که هوای معتدل و طبیعت در زیباترین حالت خود قرار دارد.</p>
+                </div>
+            </div>
+            <div class="distance-list reveal">
+                <span class="distance-item"><i class="fas fa-location-dot"></i> فاصله تا ساری: ۴۵ کیلومتر</span>
+                <span class="distance-item"><i class="fas fa-location-dot"></i> فاصله تا قائم‌شهر: ۳۰ کیلومتر</span>
+                <span class="distance-item"><i class="fas fa-location-dot"></i> فاصله تا تهران: ۲۵۰ کیلومتر</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== HISTORY ========== -->
+    <section id="history" class="section alt-bg">
+        <div class="container">
+            <h2 class="section-title reveal">تاریخچه و میراث</h2>
+            <div class="card-grid">
+                <div class="card reveal">
+                    <h3><i class="fas fa-archway"></i> پل شاپور تاریخی</h3>
+                    <p>پل شاپور، یادگار دوران ساسانیان، بر روی رودخانه چای‌باغ قرار دارد. این پل با سنگ‌های عظیم و معماری باستانی، نشان‌دهنده مهارت مهندسان ایرانی در دوران باستان است. پل شاپور تا امروز پابرجا مانده و همچنان مورد استفاده محلی‌ها قرار می‌گیرد.</p>
+                </div>
+                <div class="card reveal">
+                    <h3><i class="fas fa-landmark"></i> آثار باستانی</h3>
+                    <p>در اطراف روستا، تپه‌های باستانی و گورستان‌های قدیمی کشف شده است که نشان از سکونت انسان در این منطقه از هزاران سال پیش دارد. سفال‌ها و ابزارهای سنگی پیدا شده در این محوطه‌ها، قدمت منطقه را به دوران پیش از تاریخ می‌رساند.</p>
+                </div>
+                <div class="card reveal">
+                    <h3><i class="fas fa-book"></i> افسانه‌ها و روایت‌ها</h3>
+                    <p>اهالی چای‌باغ داستان‌های بسیاری درباره پل شاپور و چشمه‌های منطقه نقل می‌کنند. یکی از مشهورترین افسانه‌ها، درباره دختری است که با آواز خود چشمه‌ها را جاری می‌کرده است. این روایت‌ها بخشی از هویت فرهنگی روستا محسوب می‌شوند.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== GALLERY ========== -->
+    <section id="gallery" class="section">
+        <div class="container">
+            <h2 class="section-title reveal">گالری تصاویر</h2>
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- تصاویر از Supabase بارگذاری می‌شوند -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== LIGHTBOX ========== -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
+        <img id="lightboxImg" src="" alt="تصویر بزرگ‌شده">
+    </div>
+
+    <!-- ========== STAY / BOOKING ========== -->
+    <section id="stay" class="section booking-section">
+        <div class="container">
+            <h2 class="section-title reveal">اقامتگاه‌های بوم‌گردی</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; position: relative; z-index: 1;" id="stayGrid">
+                <!-- کارت‌های اقامت از Supabase بارگذاری می‌شوند -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT / RESERVATION ========== -->
+    <section id="contact" class="section alt-bg">
+        <div class="container">
+            <h2 class="section-title reveal">تماس و رزرو</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;" class="contact-grid">
+                <div class="card reveal">
+                    <h3><i class="fas fa-phone" style="color: var(--accent);"></i> اطلاعات تماس</h3>
+                    <p><i class="fas fa-phone"></i> ۰۹۱۲۱۲۳۴۵۶۷</p>
+                    <p><i class="fas fa-envelope"></i> info@chaybagh.ir</p>
+                    <p><i class="fas fa-map-pin"></i> روستای چای‌باغ، سوادکوه شمالی، مازندران</p>
+                    <div style="margin-top: 16px;">
+                        <a href="#" class="btn btn-primary"><i class="fab fa-whatsapp"></i> واتس‌اپ</a>
+                        <a href="#" class="btn btn-primary" style="background: #1e3a22;"><i class="fab fa-telegram"></i> تلگرام</a>
+                    </div>
+                </div>
+                <div class="card reveal">
+                    <h3><i class="fas fa-calendar-check" style="color: var(--accent);"></i> فرم رزرو</h3>
+                    <form id="reservationForm">
+                        <input type="hidden" id="selectedLodgingId" value="">
+                        <div class="form-group">
+                            <label for="fullName">نام و نام خانوادگی</label>
+                            <input type="text" id="fullName" placeholder="مثال: علی محمدی" required>
+                            <div class="error-msg" id="nameError">لطفاً نام خود را وارد کنید</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">شماره تماس</label>
+                            <input type="tel" id="phone" placeholder="۰۹۱۲۱۲۳۴۵۶۷" required>
+                            <div class="error-msg" id="phoneError">شماره تماس صحیح نیست</div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="checkIn">تاریخ ورود</label>
+                                <input type="date" id="checkIn" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="checkOut">تاریخ خروج</label>
+                                <input type="date" id="checkOut" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="guests">تعداد مهمانان</label>
+                            <select id="guests" required>
+                                <option value="1">۱ نفر</option>
+                                <option value="2" selected>۲ نفر</option>
+                                <option value="3">۳ نفر</option>
+                                <option value="4">۴ نفر</option>
+                                <option value="5">۵ نفر</option>
+                                <option value="6">۶ نفر</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">پیام (اختیاری)</label>
+                            <textarea id="message" rows="3" placeholder="درخواست یا سوال خاصی دارید؟"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-accent" style="width: 100%; justify-content: center;">
+                            <i class="fas fa-check"></i> ارسال درخواست رزرو
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="container">
+            <p>© ۱۴۰۵ - روستای چای‌باغ | تمامی حقوق محفوظ است.</p>
+            <p style="margin-top: 6px; font-size: 12px; opacity: 0.6;">
+                <i class="fas fa-code"></i> طراحی و توسعه با عشق به طبیعت ایران
+            </p>
+        </div>
+    </footer>
+
+    <!-- ========== TOAST CONTAINER ========== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ========== MODAL ========== -->
+    <div class="modal-overlay" id="reservationModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-check-circle" style="color: var(--success);"></i> ثبت درخواست</h3>
+                <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <div id="modalLoading" class="loading-spinner">
+                    <div class="spinner"></div>
+                    <span>در حال ثبت درخواست...</span>
+                </div>
+                <div id="modalSuccess" style="display: none; text-align: center; padding: 20px 0;">
+                    <i class="fas fa-check-circle" style="font-size: 56px; color: var(--success); margin-bottom: 16px;"></i>
+                    <h3 style="color: var(--primary); font-weight: 800;">درخواست شما ثبت شد!</h3>
+                    <p style="color: var(--muted); margin-top: 8px;">به زودی با شما تماس می‌گیریم.</p>
+                </div>
+                <div id="modalError" style="display: none; text-align: center; padding: 20px 0;">
+                    <i class="fas fa-exclamation-circle" style="font-size: 56px; color: var(--danger); margin-bottom: 16px;"></i>
+                    <h3 style="color: var(--danger); font-weight: 800;">خطا در ثبت درخواست</h3>
+                    <p style="color: var(--muted); margin-top: 8px;" id="modalErrorText">لطفاً دوباره تلاش کنید.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="modalOkBtn">متوجه شدم</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== Supabase SDK ========== -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- ========== فایل جاوااسکریپت ========== -->
+    <script src="script.js"></script>
+
+</body>
+</html>
