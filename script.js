@@ -2,8 +2,8 @@
 // 0. SUPABASE INIT
 // ============================================
 // این دو مقدار رو از Project Settings → API توی Supabase بردار و اینجا جایگزین کن
-const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL = 'https://mqdrqkucadkypyiglgic.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_03gzca8SwmtCTs84YerXrw_nCUprvU8';
 
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
