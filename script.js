@@ -1,7 +1,6 @@
 // ============================================
 // 0. SUPABASE INIT
 // ============================================
-// این دو مقدار رو از Project Settings → API توی Supabase بردار و اینجا جایگزین کن
 const SUPABASE_URL = 'https://mqdrqkucadkypyiglgic.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_03gzca8SwmtCTs84YerXrw_nCUprvU8';
 
