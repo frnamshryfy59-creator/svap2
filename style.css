@@ -28,7 +28,6 @@ body {
     overflow-x: hidden;
 }
 
-/* ===== پس‌زمینه متحرک ===== */
 .page-bg {
     position: fixed;
     inset: 0;
@@ -46,7 +45,6 @@ body {
     100% { background-position: 10% 10%, 90% 85%, 55% 45%; }
 }
 
-/* ===== هدر ===== */
 header {
     background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
     color: #fff;
@@ -118,7 +116,6 @@ nav a.active::after {
     border-radius: 2px;
 }
 
-/* ===== منوی همبرگری ===== */
 .menu-toggle {
     display: none;
     background: none;
@@ -129,7 +126,6 @@ nav a.active::after {
     padding: 8px;
 }
 
-/* ===== بخش‌ها ===== */
 .section {
     padding: 70px 0;
     position: relative;
@@ -145,7 +141,6 @@ nav a.active::after {
     padding: 0 24px;
 }
 
-/* ===== تیتر بخش ===== */
 .section-title {
     color: var(--primary);
     font-size: 28px;
@@ -156,7 +151,6 @@ nav a.active::after {
     line-height: 1.4;
 }
 
-/* ===== کارت‌ها ===== */
 .card {
     background: var(--card);
     padding: 28px;
@@ -184,14 +178,12 @@ nav a.active::after {
     margin-bottom: 10px;
 }
 
-/* ===== گرید کارت ===== */
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 24px;
 }
 
-/* ===== فاصله‌ها ===== */
 .distance-list {
     display: flex;
     gap: 14px;
@@ -220,7 +212,6 @@ nav a.active::after {
     color: var(--accent);
 }
 
-/* ===== گالری ===== */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -243,7 +234,6 @@ nav a.active::after {
     border-color: var(--accent);
 }
 
-/* ===== لایت‌باکس ===== */
 .lightbox {
     display: none;
     position: fixed;
@@ -288,7 +278,6 @@ nav a.active::after {
     background: rgba(255,255,255,0.25);
 }
 
-/* ===== بخش رزرو ===== */
 .booking-section {
     background: linear-gradient(170deg, var(--primary-dark) 0%, var(--primary) 60%, #3a6e40 100%);
     color: #fff;
@@ -399,7 +388,6 @@ nav a.active::after {
     margin-right: 4px;
 }
 
-/* ===== دکمه‌ها ===== */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -447,7 +435,6 @@ nav a.active::after {
     transform: translateY(-1px);
 }
 
-/* ===== مودال ===== */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -530,7 +517,6 @@ nav a.active::after {
     justify-content: flex-start;
 }
 
-/* ===== فرم ===== */
 .form-group {
     margin-bottom: 18px;
 }
@@ -579,7 +565,6 @@ nav a.active::after {
     gap: 14px;
 }
 
-/* ===== تست (Toast) ===== */
 .toast-container {
     position: fixed;
     top: 80px;
@@ -619,7 +604,6 @@ nav a.active::after {
     to { opacity: 0; transform: translateX(-40px); }
 }
 
-/* ===== لودینگ ===== */
 .loading-spinner {
     display: flex;
     flex-direction: column;
@@ -643,7 +627,6 @@ nav a.active::after {
     to { transform: rotate(360deg); }
 }
 
-/* ===== فوتر ===== */
 footer {
     background: var(--primary-dark);
     color: rgba(255,255,255,0.6);
@@ -658,10 +641,8 @@ footer a {
     text-decoration: none;
 }
 
-/* ===== اسکرول نرم ===== */
 html { scroll-behavior: smooth; }
 
-/* ===== انیمیشن ورود ===== */
 .reveal {
     opacity: 0;
     transform: translateY(28px);
@@ -673,7 +654,6 @@ html { scroll-behavior: smooth; }
     transform: translateY(0);
 }
 
-/* ===== ریسپانسیو ===== */
 @media (max-width: 768px) {
     .menu-toggle { display: block; }
     
@@ -714,11 +694,10 @@ html { scroll-behavior: smooth; }
     .gallery-grid img { height: 220px; }
 }
 
-/* ===== کاهش حرکت ===== */
 @media (prefers-reduced-motion: reduce) {
     .page-bg { animation: none; }
     .booking-section::before,
     .booking-section::after { animation: none; }
     .toast { animation: none; }
     .reveal { opacity: 1; transform: none; transition: none; }
-}
+    }
