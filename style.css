@@ -14,10 +14,10 @@
     --success: #27ae60;
 }
 
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -60,13 +60,15 @@ header {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     height: 68px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
 }
 
 .logo {
+    grid-column: 1;
+    justify-self: start;
     font-size: 22px;
     font-weight: 800;
     letter-spacing: -0.5px;
@@ -78,6 +80,11 @@ header {
 .logo i {
     color: var(--accent);
     font-size: 20px;
+}
+
+#mainNav {
+    grid-column: 2;
+    justify-self: center;
 }
 
 nav ul {
@@ -98,7 +105,7 @@ nav a {
     position: relative;
 }
 
-nav a:hover, 
+nav a:hover,
 nav a.active {
     background: rgba(255,255,255,0.12);
     color: #fff;
@@ -117,6 +124,8 @@ nav a.active::after {
 }
 
 .menu-toggle {
+    grid-column: 3;
+    justify-self: end;
     display: none;
     background: none;
     border: none;
@@ -182,6 +191,40 @@ nav a.active::after {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 24px;
+}
+
+.fx-host {
+    overflow: hidden;
+}
+
+.fx-host .container {
+    position: relative;
+    z-index: 1;
+}
+
+.nature-fx {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.nature-fx .leaf {
+    position: absolute;
+    top: -40px;
+    color: var(--primary-light);
+    opacity: 0;
+    animation-name: leafFall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes leafFall {
+    0%   { transform: translateY(-40px) translateX(0) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.35; }
+    90%  { opacity: 0.35; }
+    100% { transform: translateY(460px) translateX(30px) rotate(360deg); opacity: 0; }
 }
 
 .distance-list {
@@ -656,8 +699,8 @@ html { scroll-behavior: smooth; }
 
 @media (max-width: 768px) {
     .menu-toggle { display: block; }
-    
-    nav {
+
+    nav#mainNav {
         display: none;
         position: absolute;
         top: 68px;
@@ -666,27 +709,28 @@ html { scroll-behavior: smooth; }
         background: var(--primary-dark);
         padding: 16px 24px;
         box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        grid-column: unset;
+        justify-self: unset;
     }
-    
-    nav.open { display: block; }
-    
+
+    nav#mainNav.open { display: block; }
+
     nav ul {
         flex-direction: column;
         gap: 4px;
     }
-    
+
     nav a {
         display: block;
         padding: 10px 14px;
         border-radius: 8px;
     }
-    
+
     .section { padding: 50px 0; }
     .section-title { font-size: 23px; }
     .card-grid { grid-template-columns: 1fr; }
     .gallery-grid { grid-template-columns: repeat(2, 1fr); }
     .form-row { grid-template-columns: 1fr; }
-    .contact-grid { grid-template-columns: 1fr !important; }
 }
 
 @media (max-width: 400px) {
@@ -700,4 +744,5 @@ html { scroll-behavior: smooth; }
     .booking-section::after { animation: none; }
     .toast { animation: none; }
     .reveal { opacity: 1; transform: none; transition: none; }
-    }
+    .nature-fx .leaf { animation: none; opacity: 0.2; }
+}
