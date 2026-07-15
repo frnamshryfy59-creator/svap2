@@ -1,222 +1,257 @@
-const SUPABASE_URL = 'https://mqdrqkucadkypyiglgic.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_03gzca8SwmtCTs84YerXrw_nCUprvU8';
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+(function() {
+  'use strict';
 
-function $(sel, ctx = document) { return ctx.querySelector(sel); }
-function $$(sel, ctx = document) { return [...ctx.querySelectorAll(sel)]; }
-
-function showToast(msg, type = 'info') {
-    const container = $('#toastContainer');
-    if (!container) return;
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
-    toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i> ${msg}`;
-    container.appendChild(toast);
-    setTimeout(() => toast.remove(), 4000);
-}
-
-const menuToggle = $('#menuToggle');
-const mainNav = $('#mainNav');
-menuToggle?.addEventListener('click', () => { mainNav.classList.toggle('open'); });
-$$('nav a').forEach(link => link.addEventListener('click', () => mainNav?.classList.remove('open')));
-
-const currentPage = document.body.dataset.page;
-$$('nav a').forEach(a => { if (a.dataset.nav === currentPage) a.classList.add('active'); });
-
-const galleryGrid = $('#galleryGrid');
-
-if (galleryGrid) {
-    async function loadGallery() {
-        galleryGrid.innerHTML = `<p style="color: var(--muted); grid-column: 1 / -1;">در حال بارگذاری گالری...</p>`;
-        const { data, error } = await supabaseClient.from('gallery').select('*').order('created_at', { ascending: false });
-        if (error) {
-            console.error('خطا در بارگذاری گالری:', error);
-            galleryGrid.innerHTML = `<p style="color: var(--danger); grid-column: 1 / -1;">مشکلی در بارگذاری گالری پیش آمد.</p>`;
-            return;
-        }
-        galleryGrid.innerHTML = '';
-        if (!data || data.length === 0) {
-            galleryGrid.innerHTML = `<p style="color: var(--muted); grid-column: 1 / -1;">هنوز تصویری اضافه نشده است.</p>`;
-            return;
-        }
-        data.forEach((item, i) => {
-            const img = document.createElement('img');
-            img.src = item.image_url;
-            img.alt = item.caption || `منظره طبیعی چای‌باغ ${i + 1}`;
-            img.loading = 'lazy';
-            galleryGrid.appendChild(img);
-        });
+  // ---------- برگ چای (افکت) ----------
+  function createTeaLeaves() {
+    const leafEmojis = ['🌿', '🍃', '🌱', '☘️'];
+    for (let i = 0; i < 14; i++) {
+      const el = document.createElement('div');
+      el.className = 'tea-leaf';
+      el.textContent = leafEmojis[i % leafEmojis.length];
+      el.style.left = Math.random() * 96 + 2 + '%';
+      el.style.top = Math.random() * 96 + 2 + '%';
+      el.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
+      el.style.animationDuration = (14 + Math.random() * 20) + 's';
+      el.style.animationDelay = (Math.random() * 10) + 's';
+      el.style.opacity = 0.06 + Math.random() * 0.10;
+      document.body.appendChild(el);
     }
+  }
+  createTeaLeaves();
 
-    const lightbox = $('#lightbox');
-    const lightboxImg = $('#lightboxImg');
-    const lightboxClose = $('#lightboxClose');
+  // ---------- ناوبری صفحات ----------
+  const pages = document.querySelectorAll('.page');
+  const navLinks = document.querySelectorAll('[data-page]');
+  const mainNav = document.getElementById('mainNav');
 
-    galleryGrid.addEventListener('click', (e) => {
-        const img = e.target.closest('img');
-        if (!img) return;
-        lightboxImg.src = img.src;
-        lightbox.classList.add('show');
-        document.body.style.overflow = 'hidden';
-    });
+  function showPage(pageId) {
+    pages.forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + pageId);
+    if (target) target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    function closeLightbox() {
-        lightbox.classList.remove('show');
-        document.body.style.overflow = '';
+    // بستن مگا منوها
+    closeAllMegas();
+
+    // بروزرسانی URL
+    if (history.pushState) {
+      const url = new URL(window.location);
+      url.searchParams.set('page', pageId);
+      history.pushState({ page: pageId }, '', url);
     }
+  }
 
-    lightboxClose?.addEventListener('click', closeLightbox);
-    lightbox?.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeLightbox();
-        if (!lightbox.classList.contains('show')) return;
-        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-            const imgs = $$('#galleryGrid img');
-            const currentSrc = lightboxImg.src;
-            let idx = imgs.findIndex(img => img.src === currentSrc);
-            if (idx === -1) return;
-            idx = e.key === 'ArrowRight' ? (idx + 1) % imgs.length : (idx - 1 + imgs.length) % imgs.length;
-            lightboxImg.src = imgs[idx].src;
-        }
-    });
-
-    loadGallery();
-}
-
-const stayGrid = $('#stayGrid');
-let LODGINGS = [];
-
-if (stayGrid) {
-    async function loadLodgings() {
-        stayGrid.innerHTML = `<p style="color: rgba(255,255,255,0.75);">در حال بارگذاری اقامتگاه‌ها...</p>`;
-        const { data, error } = await supabaseClient.from('lodgings').select('*').order('created_at', { ascending: true });
-        if (error) {
-            console.error('خطا در بارگذاری اقامتگاه‌ها:', error);
-            stayGrid.innerHTML = `<p style="color: var(--danger);">مشکلی در بارگذاری اقامتگاه‌ها پیش آمد.</p>`;
-            return;
-        }
-        LODGINGS = data || [];
-        stayGrid.innerHTML = '';
-        if (LODGINGS.length === 0) {
-            stayGrid.innerHTML = `<p style="color: rgba(255,255,255,0.75);">در حال حاضر اقامتگاهی ثبت نشده است.</p>`;
-            return;
-        }
-        LODGINGS.forEach(stay => {
-            const price = Number(stay.price_per_night).toLocaleString('fa-IR');
-            const card = document.createElement('div');
-            card.className = 'stay-card';
-            card.innerHTML = `
-                <img src="${stay.image_url}" alt="${stay.name}" class="stay-card-img" loading="lazy">
-                <div class="stay-card-body">
-                    <h3>${stay.name}</h3>
-                    <p style="color: rgba(255,255,255,0.7); font-size: 13.5px; margin-bottom: 12px;">${stay.description || ''}</p>
-                    <div class="stay-meta"><span><i class="fas fa-users"></i> ${stay.capacity} نفر</span></div>
-                    <div class="stay-price">${price} <small>تومان / شب</small></div>
-                    <button class="btn btn-accent book-stay-btn" data-id="${stay.id}" style="width: 100%; justify-content: center;">
-                        <i class="fas fa-calendar-plus"></i> رزرو این اقامتگاه
-                    </button>
-                </div>
-            `;
-            stayGrid.appendChild(card);
-        });
-    }
-
-    const form = $('#reservationForm');
-    const modal = $('#reservationModal');
-    const modalClose = $('#modalClose');
-    const modalOkBtn = $('#modalOkBtn');
-    const modalLoading = $('#modalLoading');
-    const modalSuccess = $('#modalSuccess');
-    const modalError = $('#modalError');
-    const modalErrorText = $('#modalErrorText');
-
-    function openModal() { modal.classList.add('show'); document.body.style.overflow = 'hidden'; }
-    function closeModal() {
-        modal.classList.remove('show');
-        document.body.style.overflow = '';
-        modalLoading.style.display = 'flex';
-        modalSuccess.style.display = 'none';
-        modalError.style.display = 'none';
-    }
-
-    modalClose?.addEventListener('click', closeModal);
-    modalOkBtn?.addEventListener('click', closeModal);
-    modal?.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-
-    function validatePhone(phone) { return /^09[0-9]{9}$/.test(phone.replace(/\s/g, '')); }
-
-    form?.addEventListener('submit', async (e) => {
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      const page = this.dataset.page;
+      if (page) {
         e.preventDefault();
-        const name = $('#fullName').value.trim();
-        const phone = $('#phone').value.trim();
-        const checkIn = $('#checkIn').value;
-        const checkOut = $('#checkOut').value;
-        const guests = $('#guests').value;
-        const lodgingId = $('#selectedLodgingId').value || null;
-
-        let valid = true;
-        if (!name) { $('#nameError').style.display = 'block'; valid = false; } else { $('#nameError').style.display = 'none'; }
-        if (!validatePhone(phone)) { $('#phoneError').style.display = 'block'; valid = false; } else { $('#phoneError').style.display = 'none'; }
-        if (!checkIn || !checkOut) { showToast('لطفاً تاریخ ورود و خروج را انتخاب کنید.', 'error'); valid = false; }
-        if (checkIn && checkOut && checkIn > checkOut) { showToast('تاریخ ورود نباید از تاریخ خروج بزرگ‌تر باشد.', 'error'); valid = false; }
-        if (!valid) return;
-
-        openModal();
-        modalLoading.style.display = 'flex';
-        modalSuccess.style.display = 'none';
-        modalError.style.display = 'none';
-
-        const { error } = await supabaseClient.from('bookings').insert([{
-            lodging_id: lodgingId, full_name: name, phone: phone,
-            check_in: checkIn, check_out: checkOut, guests_count: Number(guests)
-        }]);
-
-        modalLoading.style.display = 'none';
-
-        if (!error) {
-            modalSuccess.style.display = 'block';
-            showToast('✅ درخواست رزرو با موفقیت ثبت شد!', 'success');
-            form.reset();
-            $('#selectedLodgingId').value = '';
-        } else {
-            console.error('خطا در ثبت رزرو:', error);
-            modalErrorText.textContent = 'متأسفانه در ثبت درخواست خطایی رخ داد. لطفاً دوباره تلاش کنید.';
-            modalError.style.display = 'block';
-            showToast('❌ خطا در ثبت درخواست', 'error');
-        }
+        showPage(page);
+      }
     });
+  });
 
-    stayGrid.addEventListener('click', (e) => {
-        const btn = e.target.closest('.book-stay-btn');
-        if (!btn) return;
-        const stayId = btn.dataset.id;
-        const stay = LODGINGS.find(s => String(s.id) === String(stayId));
-        if (!stay) return;
-        $('#selectedLodgingId').value = stay.id;
-        $('#reservation')?.scrollIntoView({ behavior: 'smooth' });
-        const msgField = $('#message');
-        if (msgField) {
-            msgField.value = `درخواست رزرو اقامتگاه "${stay.name}" - ظرفیت ${stay.capacity} نفر`;
-            msgField.focus();
-            showToast(`📝 اطلاعات اقامتگاه "${stay.name}" اضافه شد.`, 'info');
-        }
+  // مدیریت رویدادهای مگا منو (کلیک برای باز/بستن)
+  const megaTriggers = document.querySelectorAll('.main-nav > li > a[data-page]');
+  const megaDropdowns = document.querySelectorAll('.mega-dropdown');
+
+  function closeAllMegas() {
+    megaDropdowns.forEach(d => d.classList.remove('open'));
+  }
+
+  megaTriggers.forEach(trigger => {
+    trigger.addEventListener('click', function(e) {
+      const page = this.dataset.page;
+      const parent = this.closest('li').querySelector('.mega-dropdown');
+      if (!parent) {
+        e.preventDefault();
+        showPage(page);
+        return;
+      }
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (parent.classList.contains('open')) {
+        parent.classList.remove('open');
+        return;
+      }
+
+      closeAllMegas();
+      parent.classList.add('open');
     });
+  });
 
-    loadLodgings();
-}
+  // بستن با کلیک بیرون
+  document.addEventListener('click', function(e) {
+    const isInside = e.target.closest('.main-nav') || e.target.closest('.mega-dropdown');
+    if (!isInside) {
+      closeAllMegas();
+    }
+  });
 
-const revealEls = $$('.reveal');
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-}, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
-revealEls.forEach(el => observer.observe(el));
+  // بستن با Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeAllMegas();
+    }
+  });
 
-window.addEventListener('load', () => {
-    revealEls.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 60) el.classList.add('visible');
+  // ---------- هدر اسکرول ----------
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 40) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  // ---------- گالری (لایت‌باکس) ----------
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const closeLightbox = document.getElementById('closeLightbox');
+
+  document.querySelectorAll('.gallery-preview img, .gallery-grid img').forEach(img => {
+    img.addEventListener('click', function() {
+      const src = this.dataset.full || this.src;
+      lightboxImg.src = src;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
     });
-});
+  });
 
-console.log('🌿 روستای چای‌باغ - وب‌سایت با موفقیت بارگذاری شد!');
+  function closeLightboxFn() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  closeLightbox.addEventListener('click', closeLightboxFn);
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === this) closeLightboxFn();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightboxFn();
+  });
+
+  // ---------- رزرو (LocalStorage) ----------
+  const bookingForm = document.getElementById('bookingForm');
+  const reservationList = document.getElementById('reservationList');
+  const toast = document.getElementById('toast');
+
+  // پر کردن انتخاب اقامتگاه از دکمه‌های کارت
+  document.querySelectorAll('.btn-book').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const stayName = this.dataset.stay;
+      const select = document.getElementById('selectedStay');
+      if (select) {
+        select.value = stayName;
+      }
+      document.getElementById('page-reservation').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // بارگذاری رزروها
+  function loadReservations() {
+    const data = JSON.parse(localStorage.getItem('reservations') || '[]');
+    if (!reservationList) return;
+    reservationList.innerHTML = '';
+    if (data.length === 0) {
+      reservationList.innerHTML = '<p style="color:var(--gray);">هیچ رزروی ثبت نشده است.</p>';
+      return;
+    }
+    data.forEach((item, index) => {
+      const div = document.createElement('div');
+      div.style.cssText = 'background:white; border-radius:16px; padding:12px 16px; box-shadow:var(--shadow); border:1px solid #f0ebe4; flex:1 1 200px;';
+      div.innerHTML = `
+        <strong>${item.fullName}</strong><br>
+        <span style="font-size:0.85rem; color:var(--gray);">${item.stay} • ${item.guests} نفر</span><br>
+        <span style="font-size:0.8rem;">ورود: ${item.checkIn} | خروج: ${item.checkOut}</span>
+        <button data-idx="${index}" style="background:none; border:none; color:#b91c1c; cursor:pointer; float:left; font-size:0.9rem;"><i class="fas fa-trash"></i></button>
+      `;
+      reservationList.appendChild(div);
+
+      div.querySelector('button[data-idx]').addEventListener('click', function() {
+        const idx = parseInt(this.dataset.idx);
+        let list = JSON.parse(localStorage.getItem('reservations') || '[]');
+        list.splice(idx, 1);
+        localStorage.setItem('reservations', JSON.stringify(list));
+        loadReservations();
+        showToast('رزرو حذف شد');
+      });
+    });
+  }
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  bookingForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const fullName = document.getElementById('fullName').value.trim();
+    const mobile = document.getElementById('mobile').value.trim();
+    const checkIn = document.getElementById('checkIn').value;
+    const checkOut = document.getElementById('checkOut').value;
+    const guests = parseInt(document.getElementById('guests').value);
+    const stay = document.getElementById('selectedStay').value;
+
+    if (!fullName || !mobile || !checkIn || !checkOut || !guests) {
+      showToast('لطفاً تمام فیلدهای اجباری را پر کنید.');
+      return;
+    }
+
+    const newRes = { fullName, mobile, checkIn, checkOut, guests, stay };
+    const list = JSON.parse(localStorage.getItem('reservations') || '[]');
+    list.push(newRes);
+    localStorage.setItem('reservations', JSON.stringify(list));
+
+    showToast('رزرو شما با موفقیت ثبت شد!');
+    bookingForm.reset();
+    loadReservations();
+  });
+
+  // بارگذاری اولیه
+  loadReservations();
+
+  // ---------- بازیابی صفحه از URL ----------
+  function restorePageFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get('page');
+    if (page) {
+      const target = document.getElementById('page-' + page);
+      if (target) {
+        pages.forEach(p => p.classList.remove('active'));
+        target.classList.add('active');
+      }
+    } else {
+      const home = document.getElementById('page-home');
+      if (home) {
+        pages.forEach(p => p.classList.remove('active'));
+        home.classList.add('active');
+      }
+    }
+  }
+  restorePageFromURL();
+
+  window.addEventListener('popstate', function(e) {
+    if (e.state && e.state.page) {
+      showPage(e.state.page);
+    } else {
+      restorePageFromURL();
+    }
+  });
+
+  // ---------- به‌روزرسانی تاریخ امروز در فرم (پیش‌فرض) ----------
+  const today = new Date().toISOString().split('T')[0];
+  const checkInInput = document.getElementById('checkIn');
+  const checkOutInput = document.getElementById('checkOut');
+  if (checkInInput) checkInInput.min = today;
+  if (checkOutInput) checkOutInput.min = today;
+  if (checkInInput) checkInInput.value = today;
+  if (checkOutInput) {
+    const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+    checkOutInput.value = tomorrow;
+  }
+
+  console.log('وب‌سایت چای‌باغ با موفقیت بارگذاری شد.');
+})();
